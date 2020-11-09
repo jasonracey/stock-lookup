@@ -21,7 +21,7 @@ class ConnectedForm extends Component {
 
     handleChange(event) {
         this.setState({ 
-            symbol: event.target.value?.trim() ?? defaultSymbol, 
+            [event.target.id]: event.target.value?.trim() ?? defaultSymbol, 
             price: defaultPrice });
     }
 

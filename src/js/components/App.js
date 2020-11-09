@@ -1,6 +1,7 @@
 import React from "react";
 import List from "./List";
 import Form from "./Form";
+import Stock from "./Stocks";
 
 const App = () => (
     <>
@@ -11,6 +12,10 @@ const App = () => (
         <div>
             <h2>Look up stock price</h2>
             <Form />
+        </div>
+        <div>
+            <h2>Stocks With Prices</h2>
+            <Stock />
         </div>
     </>
 );

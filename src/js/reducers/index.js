@@ -1,7 +1,8 @@
-import { ADD_STOCK } from "../constants/action-types.js";
+import { ADD_STOCK, API_ERRORED, DATA_LOADED } from "../constants/action-types";
 
 const initialState = {
-    stocks: []
+    stocks: [],
+    stocksWithPrices: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -10,6 +11,17 @@ function rootReducer(state = initialState, action) {
             stocks: state.stocks.concat(action.payload)
           });
     }
+
+    if (action.type === API_ERRORED) {
+        return state;
+    }
+
+    if (action.type === DATA_LOADED) {
+        return Object.assign({}, state, {
+            stocksWithPrices: state.stocksWithPrices.concat(action.payload)
+        });
+    }
+
     return state;
 };
 
