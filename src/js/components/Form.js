@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addStock } from "../actions/index";
 
-// maps redux dispatch to react props
+const defaultSymbol = "";
+const defaultPrice = 0;
+
 function mapDispatchToProps(dispatch) {
     return {
         addStock: stock => dispatch(addStock(stock))
@@ -12,22 +14,22 @@ function mapDispatchToProps(dispatch) {
 class ConnectedForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            symbol: ""
-        };
+        this.state = {symbol: defaultSymbol, price: defaultPrice };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({ [event.target.id]: event.target.value?.trim() ?? "" });
+        this.setState({ 
+            symbol: event.target.value?.trim() ?? defaultSymbol, 
+            price: defaultPrice });
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        const { symbol } = this.state;
-        this.props.addStock({ symbol });
-        this.setState({ symbol: "" });
+        const { symbol, price } = this.state;
+        this.props.addStock({ symbol, price });
+        this.setState({ symbol: defaultSymbol, price: defaultPrice });
     }
 
     render() {
@@ -43,7 +45,7 @@ class ConnectedForm extends Component {
                         onChange={this.handleChange}
                     />
                 </div>
-                <button type="submit">SAVE</button>
+                <button type="submit">SEARCH</button>
             </form>
         );
     }

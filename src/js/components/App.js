@@ -5,11 +5,11 @@ import Form from "./Form";
 const App = () => (
     <>
         <div>
-            <h2>Stocks</h2>
+            <h2>Stock Prices</h2>
             <List />
         </div>
         <div>
-            <h2>Add a new stock</h2>
+            <h2>Look up stock price</h2>
             <Form />
         </div>
     </>
