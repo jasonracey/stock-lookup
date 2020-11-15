@@ -1,5 +1,5 @@
 import store from "../js/store/index";
-import { addStock } from "../js/actions/index";
+import { getData } from "../js/actions/index";
 
 window.store = store;
-window.addStock = addStock;
+window.getData = getData;

@@ -7,14 +7,15 @@ export default function* watcherSaga() {
 
 function* workerSaga(action) {
     try {
-        const payload = yield call(getData, action.payload.url);
+        const payload = yield call(getData, action.payload.symbol);
         yield put({ type: DATA_LOADED, payload});
     } catch (e) {
         yield put({ type: API_ERRORED, payload: e });
     }
 }
 
-async function getData(url) {
+async function getData(symbol) {
+    const url = `https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes?region=US&symbols=${symbol}`;
     return fetch(url, {
         "method": "GET",
         "headers": {

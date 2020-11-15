@@ -1,35 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addStock } from "../actions/index";
+import { getData } from "../actions/index";
 
-const defaultSymbol = "";
-const defaultPrice = 0;
+const emptyString = "";
 
 function mapDispatchToProps(dispatch) {
-    return {
-        addStock: stock => dispatch(addStock(stock))
-    };
+    return { getData: symbol => dispatch(getData(symbol)) };
 }
 
 class ConnectedForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {symbol: defaultSymbol, price: defaultPrice };
+        this.state = { symbol: emptyString };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({ 
-            [event.target.id]: event.target.value?.trim() ?? defaultSymbol, 
-            price: defaultPrice });
+        this.setState({ [event.target.id]: event.target.value?.trim() ?? emptyString });
     }
 
     handleSubmit(event) {
+        // prevent button click from submitting the form
         event.preventDefault();
-        const { symbol, price } = this.state;
-        this.props.addStock({ symbol, price });
-        this.setState({ symbol: defaultSymbol, price: defaultPrice });
+        this.props.getData(this.state.symbol);
+        this.setState({ symbol: emptyString });
     }
 
     render() {
@@ -52,9 +47,6 @@ class ConnectedForm extends Component {
 }
 
 //the first argument for connect must be null when mapStateToProps is absent
-const Form = connect(
-    null, 
-    mapDispatchToProps
-)(ConnectedForm);
+const Form = connect(null, mapDispatchToProps)(ConnectedForm);
 
 export default Form;

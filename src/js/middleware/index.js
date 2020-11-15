@@ -1,5 +1,5 @@
 import { 
-    ADD_STOCK, 
+    DATA_REQUESTED, 
     INVALID_SYMBOL_CHARACTERS,
     INVALID_SYMBOL_LENGTH 
 } from "../constants/action-types";
@@ -12,7 +12,7 @@ const validSymbolCharacters = new RegExp("^[\x21-\x7F]+$");
 export function symbolValidationMiddleware({ dispatch }) {
     return function(next){
         return function(action){
-            if (action.type === ADD_STOCK) {
+            if (action.type === DATA_REQUESTED) {
 
                 const symbol = action?.payload?.symbol ?? "";
 
