@@ -4,14 +4,19 @@ import { getData } from "../actions/index";
 
 export class Stock extends Component {
     componentDidMount() {
-        this.props.getData("https://api.valentinog.com/api/link/");
+        this.props.getData("https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes?symbols=MSFT,AAPL,AMZN&region=US");
     }
 
     render() {
+        const formatter = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD"
+        });
+
         return (
             <ul>
-                {this.props.stocks.map(article => (
-                    <li key={article.id}>{article.title}</li>
+                {this.props.stocksWithPrices.map(stock => (
+                    <li key={stock?.symbol}>{`${stock.symbol} ${formatter.format(stock.ask)}`}</li>
                 ))}
             </ul>
         );
@@ -19,9 +24,9 @@ export class Stock extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(JSON.stringify(state.stocksWithPrices));
     return {
-        // todo: don't need slice?
-        stocks: state.stocksWithPrices.slice(0, 10)
+        stocksWithPrices: state.stocksWithPrices
     };
 }
 

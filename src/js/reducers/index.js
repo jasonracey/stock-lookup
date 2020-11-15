@@ -18,7 +18,7 @@ function rootReducer(state = initialState, action) {
 
     if (action.type === DATA_LOADED) {
         return Object.assign({}, state, {
-            stocksWithPrices: state.stocksWithPrices.concat(action.payload)
+            stocksWithPrices: action.payload.quoteResponse.result
         });
     }
 

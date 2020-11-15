@@ -15,5 +15,11 @@ function* workerSaga(action) {
 }
 
 async function getData(url) {
-    return fetch(url).then(response => response.json())
+    return fetch(url, {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-key": process.env.REACT_APP_RAPIDAPI_API_KEY,
+            "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com"
+        }
+    }).then(response => response.json())
 }
