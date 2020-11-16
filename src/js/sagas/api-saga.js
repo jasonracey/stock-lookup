@@ -1,4 +1,5 @@
 import { takeEvery, call, put } from "redux-saga/effects";
+import { trackPromise } from 'react-promise-tracker';
 import { API_ERRORED, DATA_LOADED, DATA_REQUESTED } from "../constants/action-types";
 
 export default function* watcherSaga() {
@@ -16,11 +17,11 @@ function* workerSaga(action) {
 
 async function getData(symbol) {
     const url = `https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes?region=US&symbols=${symbol}`;
-    return fetch(url, {
+    return trackPromise(fetch(url, {
         "method": "GET",
         "headers": {
             "x-rapidapi-key": process.env.REACT_APP_RAPIDAPI_API_KEY,
             "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com"
         }
-    }).then(response => response.json())
+    })).then(response => response.json())
 }
