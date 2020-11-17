@@ -4,8 +4,6 @@ import { getData } from "../actions/index";
 
 const emptyString = "";
 
-let isButtonDisabled = true;
-
 function mapDispatchToProps(dispatch) {
     return { getData: symbol => dispatch(getData(symbol)) };
 }
@@ -13,27 +11,37 @@ function mapDispatchToProps(dispatch) {
 class ConnectedForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { symbol: emptyString };
+        this.state = { 
+            symbol: emptyString,
+            isButtonDisabled: true
+        };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
         const symbol = event.target.value?.trim() ?? emptyString;
-        isButtonDisabled = symbol === emptyString;
-        this.setState({ [event.target.id]: symbol });
+        this.setState({ 
+            [event.target.id]: symbol,
+            isButtonDisabled: symbol === emptyString 
+        });
     }
 
     handleSubmit(event) {
         // prevent button click from submitting the form
         event.preventDefault();
         this.props.getData(this.state.symbol);
-        this.setState({ symbol: emptyString });
-        isButtonDisabled = true;
+        this.setState({ 
+            symbol: emptyString,
+            isButtonDisabled: true 
+        });
     }
 
     render() {
-        const { symbol } = this.state;
+        const { 
+            symbol, 
+            isButtonDisabled 
+        } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
                 <div>
