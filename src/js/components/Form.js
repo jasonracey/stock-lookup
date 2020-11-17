@@ -4,6 +4,8 @@ import { getData } from "../actions/index";
 
 const emptyString = "";
 
+let isButtonDisabled = true;
+
 function mapDispatchToProps(dispatch) {
     return { getData: symbol => dispatch(getData(symbol)) };
 }
@@ -17,7 +19,9 @@ class ConnectedForm extends Component {
     }
 
     handleChange(event) {
-        this.setState({ [event.target.id]: event.target.value?.trim() ?? emptyString });
+        const symbol = event.target.value?.trim() ?? emptyString;
+        isButtonDisabled = symbol === emptyString;
+        this.setState({ [event.target.id]: symbol });
     }
 
     handleSubmit(event) {
@@ -40,7 +44,10 @@ class ConnectedForm extends Component {
                         onChange={this.handleChange}
                     />
                 </div>
-                <button type="submit">SEARCH</button>
+                <button 
+                    type="submit"
+                    disabled={isButtonDisabled}
+                >SEARCH</button>
             </form>
         );
     }
