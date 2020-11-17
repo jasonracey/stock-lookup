@@ -14,7 +14,7 @@ const mapStateToProps = state => {
 const ConnectedList = ({ stocks }) => (
     <ul>
         {stocks.map(stock => (
-            <li key={stock.symbol}>{`${stock.symbol} ${formatter.format(stock.ask)}`}</li>
+            <li key={stock.symbol}>{`${stock.symbol} ${formatter.format(stock.regularMarketPrice)}`}</li>
         ))}
     </ul>
 );
