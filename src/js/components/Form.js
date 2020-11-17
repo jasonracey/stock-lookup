@@ -29,6 +29,7 @@ class ConnectedForm extends Component {
         event.preventDefault();
         this.props.getData(this.state.symbol);
         this.setState({ symbol: emptyString });
+        isButtonDisabled = true;
     }
 
     render() {
